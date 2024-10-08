@@ -3,7 +3,7 @@ int blue1_pin = 12;
 int blue2_pin = 11;
 int green_pin = 9;
 int button_1 = 7;
-int button_2 = 6
+int button_2 = 6;
 
 int losing = 0;
 int winning = 0;
@@ -21,27 +21,15 @@ void loop() {
   // put your main code here, to run repeatedly:
   if digitalWrite(button_1, HIGH){
     digitalWrite(green_pin, HIGH);
-    winning = 1
+    winning = 1;
     delay(2000); 
   }
-  
-  digitalWrite(red_pin, HIGH);
-  delay(500);
-  digitalWrite(red_pin, LOW);
-  delay(500);
-
-  digitalWrite(blue1_pin, HIGH);
-  delay(500);
+  if digitalWrite(button_2, HIGH){
+    digitalWrite(blue1_pin, HIGH);
+    losing = 1;
+    delay(2000);
+  {
   digitalWrite(blue1_pin, LOW);
-  delay(500);
-
-  digitalWrite(blue2_pin, HIGH);
-  delay(500);
-  digitalWrite(blue2_pin, LOW);
-  delay(500);
-
-  digitalWrite(green_pin, HIGH);
-  delay(500);
   digitalWrite(green_pin, LOW);
-  delay(500);
+ 
 }
