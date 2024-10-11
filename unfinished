@@ -5,6 +5,8 @@ int green_pin = 9;
 int button_1 = 7;
 int button_2 = 6;
 
+int count = 0
+
 int losing = 0;
 int winning = 0;
 void setup() {
@@ -17,19 +19,34 @@ void setup() {
   pinMode(button_2, INPUT);
 }
 
-void loop() {
+void loop() 
+{
   // put your main code here, to run repeatedly:
-  if digitalWrite(button_1, HIGH){
+  if (digitalRead(button_2) == HIGH){
     digitalWrite(green_pin, HIGH);
     winning = 1;
     delay(2000); 
   }
-  if digitalWrite(button_2, HIGH){
+  if (digitalRead(button_1) == HIGH){
     digitalWrite(blue1_pin, HIGH);
     losing = 1;
     delay(2000);
-  {
+  }
   digitalWrite(blue1_pin, LOW);
   digitalWrite(green_pin, LOW);
- 
+  while (winning == 1 && losing == 1 && count == 0){
+    digitalWrite(green_pin, HIGH);
+    digitalWrite(blue1_pin, HIGH);
+    digitalWrite(blue2_pin, HIGH);
+    digitalWrite(red_pin, HIGH);
+    delay(1000);
+    digitalWrite(green_pin, LOW);
+    digitalWrite(blue1_pin, LOW);
+    digitalWrite(blue2_pin, LOW);
+    digitalWrite(red_pin, LOW);
+    delay(1000);
+    count = 1;
+  }
+  
+
 }
