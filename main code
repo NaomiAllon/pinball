@@ -27,13 +27,13 @@ void loop()
     winning = 1;
     delay(2000); 
   }
-  if (digitalRead(button_1) == HIGH){
-    digitalWrite(blue1_pin, HIGH);
-    losing = 1;
-    delay(2000);
-  }
-  digitalWrite(blue1_pin, LOW);
-  digitalWrite(green_pin, LOW);
+ 
+
+  losingSequence();
+
+}
+
+void both(){
   while (winning == 1 && losing == 1 && count == 0){
     digitalWrite(green_pin, HIGH);
     digitalWrite(blue1_pin, HIGH);
@@ -47,6 +47,40 @@ void loop()
     delay(1000);
     count = 1;
   }
-  
+}
+void losingSequence(){
+  if (winning == 0 && losing == 0 && count == 0){
+    digitalWrite(green_pin, HIGH);
+    digitalWrite(blue1_pin, HIGH);
+    digitalWrite(blue2_pin, HIGH);
+    digitalWrite(red_pin, HIGH);
+    delay(1000);
+    digitalWrite(green_pin, LOW);
+    digitalWrite(blue1_pin, LOW);
+    digitalWrite(blue2_pin, LOW);
+    digitalWrite(red_pin, LOW);
+    delay(1000);
+    count = 1;
+  }
+  if (digitalRead(button_1 == HIGH)){
+    losing = losing + 1;
+  }
+  if (losing == 1){
+    digitalWrite(blue1_pin, HIGH);
+  }
+  if (losing == 2){
+    digitalWrite(blue1_pin, HIGH);
+    digitalWrite(blue2_pin, HIGH);
 
+  }
+  if (losing == 3){
+    digitalWrite(blue1_pin, LOW);
+    digitalWrite(blue2_pin, LOW);
+    digitalWrite(red_pin, HIGH);
+    delay(1000);
+    digitalWrite(red_pin, LOW);
+    delay(1000);
+    losing = 0;
+    winning = 0;
+  }
 }
