@@ -22,33 +22,14 @@ void setup() {
 void loop() 
 {
   // put your main code here, to run repeatedly:
-  if (digitalRead(button_2) == HIGH){
-    digitalWrite(green_pin, HIGH);
-    winning = 1;
-    delay(2000); 
-  }
- 
 
-  losingSequence();
+  winningvslosing();
 
 }
 
-void both(){
-  while (winning == 1 && losing == 1 && count == 0){
-    digitalWrite(green_pin, HIGH);
-    digitalWrite(blue1_pin, HIGH);
-    digitalWrite(blue2_pin, HIGH);
-    digitalWrite(red_pin, HIGH);
-    delay(1000);
-    digitalWrite(green_pin, LOW);
-    digitalWrite(blue1_pin, LOW);
-    digitalWrite(blue2_pin, LOW);
-    digitalWrite(red_pin, LOW);
-    delay(1000);
-    count = 1;
-  }
-}
-void losingSequence(){
+
+void winningvslosing(){
+  /*
   if (winning == 0 && losing == 0 && count == 0){
     digitalWrite(green_pin, HIGH);
     digitalWrite(blue1_pin, HIGH);
@@ -59,19 +40,29 @@ void losingSequence(){
     digitalWrite(blue1_pin, LOW);
     digitalWrite(blue2_pin, LOW);
     digitalWrite(red_pin, LOW);
-    delay(1000);
     count = 1;
   }
-  if (digitalRead(button_1 == HIGH)){
+  */
+  while (losing<3){
+    if (digitalRead(button_1 == HIGH)){
     losing = losing + 1;
   }
-  if (losing == 1){
-    digitalWrite(blue1_pin, HIGH);
-  }
-  if (losing == 2){
-    digitalWrite(blue1_pin, HIGH);
-    digitalWrite(blue2_pin, HIGH);
+    if (losing == 1){
+      digitalWrite(blue1_pin, HIGH);
+    }
+    if (losing == 2){
+      digitalWrite(blue1_pin, HIGH);
+      digitalWrite(blue2_pin, HIGH);
 
+    }
+  }
+  if (winning ==2){
+    digitalWrite(green_pin, HIGH);
+    delay(5000);
+    digitalWrite(green_pin, LOW);
+    delay(1000);
+    losing = 0;
+    winning = 0;
   }
   if (losing == 3){
     digitalWrite(blue1_pin, LOW);
@@ -83,4 +74,5 @@ void losingSequence(){
     losing = 0;
     winning = 0;
   }
+  
 }
