@@ -1,78 +1,53 @@
 int red_pin = 13;
-int blue1_pin = 12;
-int blue2_pin = 11;
+int blue1_pin = 12; // closer to red
+int blue2_pin = 11; // closer to green
 int green_pin = 9;
-int button_1 = 7;
-int button_2 = 6;
-
-int count = 0;
+int button_losing = 7;
+int button_winning = 6;
 
 int losing = 0;
 int winning = 0;
+
+int lives = 0;
+
+
 void setup() {
   // put your setup code here, to run once:
+  Serial.begin(9600);
   pinMode(red_pin, OUTPUT);
   pinMode(blue1_pin, OUTPUT);
   pinMode(blue2_pin, OUTPUT);
   pinMode(green_pin, OUTPUT);
-  pinMode(button_1, INPUT);
-  pinMode(button_2, INPUT);
+  pinMode(button_losing, INPUT);
+  pinMode(button_winning, INPUT);
 }
 
-void loop() 
-{
+void loop() {
   // put your main code here, to run repeatedly:
-
-  winningvslosing();
-
-}
-
-
-void winningvslosing(){
-  /*
-  if (winning == 0 && losing == 0 && count == 0){
+  while (digitalRead(button_winning)==HIGH){
+    winning = winning + 1;
+    Serial.println("winning high");
     digitalWrite(green_pin, HIGH);
-    digitalWrite(blue1_pin, HIGH);
-    digitalWrite(blue2_pin, HIGH);
-    digitalWrite(red_pin, HIGH);
-    delay(1000);
-    digitalWrite(green_pin, LOW);
-    digitalWrite(blue1_pin, LOW);
-    digitalWrite(blue2_pin, LOW);
-    digitalWrite(red_pin, LOW);
-    count = 1;
+    break;
   }
-  */
-  while (losing<3){
-    if (digitalRead(button_1 == HIGH)){
+  while (digitalRead(button_losing) == HIGH){
     losing = losing + 1;
-  }
+    Serial.println("losing high");
     if (losing == 1){
       digitalWrite(blue1_pin, HIGH);
+      delay(3000);
     }
     if (losing == 2){
-      digitalWrite(blue1_pin, HIGH);
       digitalWrite(blue2_pin, HIGH);
-
+      delay(1000);
+    }
+    if (losing == 3){
+      digitalWrite(blue1_pin, LOW);
+      digitalWrite(blue2_pin, LOW);
+      digitalWrite(red_pin, HIGH);
+      break;
     }
   }
-  if (winning ==2){
-    digitalWrite(green_pin, HIGH);
-    delay(5000);
-    digitalWrite(green_pin, LOW);
-    delay(1000);
-    losing = 0;
-    winning = 0;
-  }
-  if (losing == 3){
-    digitalWrite(blue1_pin, LOW);
-    digitalWrite(blue2_pin, LOW);
-    digitalWrite(red_pin, HIGH);
-    delay(1000);
-    digitalWrite(red_pin, LOW);
-    delay(1000);
-    losing = 0;
-    winning = 0;
-  }
-  
+ 
 }
+   
