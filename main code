@@ -1,3 +1,4 @@
+
 int red_pin = 13;
 int blue1_pin = 12; // closer to red
 int blue2_pin = 11; // closer to green
@@ -7,6 +8,7 @@ int button_winning = 6;
 
 int losing = 0;
 int winning = 0;
+int loopThing = 0;
 
 int lives = 0;
 
@@ -24,31 +26,58 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if(digitalRead(button_winning)==HIGH){
-    winning = winning + 1;
-    Serial.println("winning high");
-    digitalWrite(green_pin, HIGH);
-    break;
-  }
-  while (digitalRead(button_losing) == HIGH){
-    losing = losing + 1;
-    Serial.println("losing high");
-    if (losing == 1){
-    digitalWrite(blue1_pin, HIGH);
-    delay(3000);
-    }
-    if (losing == 2){
-      digitalWrite(blue2_pin, HIGH);
+  while(loopThing == 0){
+    while (digitalRead(button_winning) == HIGH){
+      winning = winning + 1;
+      Serial.println("winning high");
+      if (winning == 1){
+      digitalWrite(green_pin, HIGH);
+      delay(3000);
+      }
+      if (winning == 2){
+        digitalWrite(green_pin, HIGH);
+        delay(3000);
+      }
+      while(digitalRead(button_winning) == LOW){
+      digitalWrite(green_pin, LOW);
+      }
+    while(winning == 3){
+      losing = 0;
       digitalWrite(blue1_pin, HIGH);
+      digitalWrite(blue2_pin, HIGH);
+      digitalWrite(red_pin, HIGH);
+      digitalWrite(green_pin, HIGH);
       delay(1000);
-    }
-    if (losing == 3){
       digitalWrite(blue1_pin, LOW);
       digitalWrite(blue2_pin, LOW);
-      digitalWrite(red_pin, HIGH);
+      digitalWrite(red_pin, LOW);
+      digitalWrite(green_pin, LOW);
+      winning = 0;
       break;
     }
+    }
+    while (digitalRead(button_losing) == HIGH){
+      losing = losing + 1;
+      Serial.println("losing high");
+      if (losing == 1){
+      digitalWrite(blue1_pin, HIGH);
+      delay(3000);
+      }
+      if (losing == 2){
+        digitalWrite(blue2_pin, HIGH);
+        digitalWrite(blue1_pin, HIGH);
+        delay(1000);
+      }
+      if (losing == 3){
+        digitalWrite(blue1_pin, LOW);
+        digitalWrite(blue2_pin, LOW);
+        digitalWrite(red_pin, HIGH);
+        delay(1000);
+        digitalWrite(red_pin, LOW);
+        break;
+      }
+    }
+  
   }
- 
 }
    
