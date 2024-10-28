@@ -24,7 +24,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  while (digitalRead(button_winning)==HIGH){
+  if(digitalRead(button_winning)==HIGH){
     winning = winning + 1;
     Serial.println("winning high");
     digitalWrite(green_pin, HIGH);
@@ -34,11 +34,12 @@ void loop() {
     losing = losing + 1;
     Serial.println("losing high");
     if (losing == 1){
-      digitalWrite(blue1_pin, HIGH);
-      delay(3000);
+    digitalWrite(blue1_pin, HIGH);
+    delay(3000);
     }
     if (losing == 2){
       digitalWrite(blue2_pin, HIGH);
+      digitalWrite(blue1_pin, HIGH);
       delay(1000);
     }
     if (losing == 3){
