@@ -1,0 +1,20 @@
+int blueLed = 2;
+int midLed = 3;
+int rightLed = 4;
+int button = 7;
+
+void setup() {
+  // put your setup code here, to run once:
+pinMode(blueLed, OUTPUT);
+pinMode(midLed, OUTPUT);
+pinMode(rightLed, OUTPUT);
+pinMode(button, INPUT);
+}
+
+void loop() {
+  if(digitalRead(button) == HIGH){
+    digitalWrite(blueLed, HIGH);
+    digitalWrite(midLed, HIGH);
+    digitalWrite(rightLed, HIGH);
+  }
+}
