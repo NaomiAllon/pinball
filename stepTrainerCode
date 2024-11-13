@@ -1,0 +1,45 @@
+int ledLeft = 2;
+int ledMid = 3;
+int ledRight = 4;
+int rangeFinder = A0;
+
+int rangeValue;
+int currentDis = 0;
+int lastDis = 0;
+int stepCount = 0; 
+int start = 0;
+void setup() {
+  // put your setup code here, to run once:
+pinMode(ledLeft, OUTPUT);
+pinMode(ledMid, OUTPUT);
+pinMode(ledRight, OUTPUT);
+Serial.begin(9600);
+}
+
+void loop() {
+  if (start == 0){
+      //tone(piezo, freq);
+      digitalWrite(ledLeft,HIGH);
+      digitalWrite(ledMid,HIGH);
+      digitalWrite(ledRight, HIGH);
+      delay(1000);
+      //noTone(piezo);
+      digitalWrite(ledLeft, LOW);
+      digitalWrite(ledMid, LOW);
+      digitalWrite(ledRight, LOW);
+      start = 1;
+    }
+  rangeValue = analogRead(rangeFinder);
+  currentDis = rangeValue;
+ 
+  if(currentDis - lastDis < 0 && currentDis < 150){
+    stepCount = stepCount + 1;
+    digitalWrite(ledLeft, HIGH);
+    delay(500);
+    digitalWrite(ledLeft, LOW);
+    delay(200);
+  }
+  Serial.println(currentDis);
+  lastDis = currentDis;
+
+}
